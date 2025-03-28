@@ -9,9 +9,6 @@ interface User {
   email: string;
   nickname: string;
   tier: UserTier;
-  billsCreated: number; // For tracking limits
-  maxBills: number; // Determined by tier
-  maxParticipants: number; // Determined by tier
 }
 
 interface AuthContextType {
@@ -115,31 +112,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // Create new user with appropriate tier limits
+      // Create new user with appropriate tier
       const newUser: User = {
         id: `user_${Date.now()}`,
         name: `${userData.firstName} ${userData.lastName}`,
         email: userData.email,
         nickname: userData.nickname,
         tier: userData.userTier,
-        billsCreated: 0,
-        maxBills:
-          userData.userTier === "premium"
-            ? Infinity
-            : userData.userTier === "standard"
-              ? 5
-              : 1,
-        maxParticipants:
-          userData.userTier === "premium"
-            ? Infinity
-            : userData.userTier === "standard"
-              ? 3
-              : 2,
       };
 
       setUser(newUser);
       localStorage.setItem("billsplit_user", JSON.stringify(newUser));
-      navigate("/dashboard");
+      navigate("/");
     } catch (error) {
       console.error("Registration failed:", error);
       throw error;

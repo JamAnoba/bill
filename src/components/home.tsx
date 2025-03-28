@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import Hero from "./landing/Hero";
 import TierComparison from "./landing/TierComparison";
 import FeatureShowcase from "./landing/FeatureShowcase";
+import Testimonials from "./landing/Testimonials";
 import AuthModal from "./auth/AuthModal";
 import { useAuth } from "@/contexts/AuthContext";
 import Navbar from "./layout/Navbar";
@@ -20,12 +21,19 @@ const Home = () => {
   const { isAuthenticated, user, login, register, logout } = useAuth();
   const navigate = useNavigate();
 
-  // Redirect to dashboard if already authenticated
+  // No redirection needed as we've removed the dashboard
   useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/dashboard");
+    // Initialize theme from localStorage or system preference
+    const savedTheme =
+      localStorage.getItem("theme") ||
+      (window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light");
+    setTheme(savedTheme as "light" | "dark");
+    if (savedTheme === "dark") {
+      document.documentElement.classList.add("dark");
     }
-  }, [isAuthenticated, navigate]);
+  }, []);
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
@@ -84,6 +92,11 @@ const Home = () => {
         {/* Feature Showcase */}
         <div id="features">
           <FeatureShowcase />
+        </div>
+
+        {/* Testimonials Section */}
+        <div id="testimonials">
+          <Testimonials />
         </div>
 
         {/* Pricing/Tier Comparison */}

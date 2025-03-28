@@ -89,7 +89,7 @@ const RegisterForm = ({
   };
 
   return (
-    <div className="w-full max-w-md p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+    <div className="w-full max-w-md p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
       <h2 className="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-white">
         Create Your Account
       </h2>
@@ -104,7 +104,11 @@ const RegisterForm = ({
                 <FormItem>
                   <FormLabel>First Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="John" {...field} />
+                    <Input
+                      placeholder="John"
+                      {...field}
+                      className="border-gray-300 dark:border-gray-600 focus:border-primary dark:focus:border-primary"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -118,7 +122,11 @@ const RegisterForm = ({
                 <FormItem>
                   <FormLabel>Last Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Doe" {...field} />
+                    <Input
+                      placeholder="Doe"
+                      {...field}
+                      className="border-gray-300 dark:border-gray-600 focus:border-primary dark:focus:border-primary"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -133,7 +141,11 @@ const RegisterForm = ({
               <FormItem>
                 <FormLabel>Nickname</FormLabel>
                 <FormControl>
-                  <Input placeholder="johndoe" {...field} />
+                  <Input
+                    placeholder="johndoe"
+                    {...field}
+                    className="border-gray-300 dark:border-gray-600 focus:border-primary dark:focus:border-primary"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -151,6 +163,7 @@ const RegisterForm = ({
                     type="email"
                     placeholder="john.doe@example.com"
                     {...field}
+                    className="border-gray-300 dark:border-gray-600 focus:border-primary dark:focus:border-primary"
                   />
                 </FormControl>
                 <FormMessage />
@@ -165,7 +178,11 @@ const RegisterForm = ({
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder="johndoe123" {...field} />
+                  <Input
+                    placeholder="johndoe123"
+                    {...field}
+                    className="border-gray-300 dark:border-gray-600 focus:border-primary dark:focus:border-primary"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -184,6 +201,7 @@ const RegisterForm = ({
                       type={showPassword ? "text" : "password"}
                       placeholder="••••••••"
                       {...field}
+                      className="border-gray-300 dark:border-gray-600 focus:border-primary dark:focus:border-primary"
                     />
                   </FormControl>
                   <Button
@@ -217,6 +235,7 @@ const RegisterForm = ({
                       type={showConfirmPassword ? "text" : "password"}
                       placeholder="••••••••"
                       {...field}
+                      className="border-gray-300 dark:border-gray-600 focus:border-primary dark:focus:border-primary"
                     />
                   </FormControl>
                   <Button

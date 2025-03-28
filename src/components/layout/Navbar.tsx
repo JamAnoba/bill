@@ -75,14 +75,7 @@ const Navbar = ({
             >
               Home
             </Link>
-            {isAuthenticated && (
-              <Link
-                to="/dashboard"
-                className="text-foreground hover:text-primary transition-colors"
-              >
-                Dashboard
-              </Link>
-            )}
+
             <Link
               to="/pricing"
               className="text-foreground hover:text-primary transition-colors"
@@ -247,15 +240,7 @@ const Navbar = ({
               >
                 Home
               </Link>
-              {isAuthenticated && (
-                <Link
-                  to="/dashboard"
-                  className="text-foreground hover:text-primary transition-colors px-3 py-2 rounded-md"
-                  onClick={toggleMobileMenu}
-                >
-                  Dashboard
-                </Link>
-              )}
+
               <Link
                 to="/pricing"
                 className="text-foreground hover:text-primary transition-colors px-3 py-2 rounded-md"
