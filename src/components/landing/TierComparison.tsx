@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,12 +10,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 interface TierFeature {
   name: string;
-  guest: boolean;
-  standard: boolean;
-  premium: boolean;
+  guest: boolean | string;
+  standard: boolean | string;
+  premium: boolean | string;
 }
 
 interface TierComparisonProps {
@@ -23,6 +24,45 @@ interface TierComparisonProps {
 }
 
 const TierComparison = ({ className = "" }: TierComparisonProps) => {
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    setIsInView(true);
+  }, []);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6 },
+    },
+    hover: {
+      y: -10,
+      transition: { duration: 0.3 },
+    },
+  };
+
+  const titleVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6 },
+    },
+  };
+
   // Default tier features
   const features: TierFeature[] = [
     { name: "Bill Creation", guest: true, standard: true, premium: true },
@@ -82,115 +122,124 @@ const TierComparison = ({ className = "" }: TierComparisonProps) => {
   };
 
   return (
-    <div
+    <motion.div
       className={cn(
         "w-full max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 bg-background",
         className,
       )}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={containerVariants}
     >
-      <div className="text-center mb-12">
+      <motion.div className="text-center mb-12" variants={titleVariants}>
         <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           Choose Your Plan
         </h2>
         <p className="mt-3 max-w-2xl mx-auto text-xl text-muted-foreground sm:mt-4">
           Select the tier that best fits your bill splitting needs
         </p>
-      </div>
+      </motion.div>
 
       <div className="grid grid-cols-1 gap-y-8 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:gap-x-8">
         {/* Guest Tier */}
-        <Card className="flex flex-col h-full border-2 border-muted hover:border-muted-foreground/50 transition-colors">
-          <CardHeader>
-            <CardTitle className="text-2xl font-bold text-center">
-              Guest
-            </CardTitle>
-            <CardDescription className="text-center text-lg mt-2">
-              {pricing.guest}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex-grow">
-            <ul className="space-y-4">
-              {features.map((feature, index) => (
-                <li key={index} className="flex items-center justify-between">
-                  <span className="text-sm font-medium">{feature.name}</span>
-                  <span className="flex items-center justify-center w-12">
-                    {renderFeatureAvailability(feature.guest)}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-          <CardFooter className="flex justify-center pb-6">
-            <Button variant="outline" className="w-full">
-              Continue as Guest
-            </Button>
-          </CardFooter>
-        </Card>
+        <motion.div variants={cardVariants} whileHover="hover">
+          <Card className="flex flex-col h-full border-2 border-muted hover:border-muted-foreground/50 transition-colors">
+            <CardHeader>
+              <CardTitle className="text-2xl font-bold text-center">
+                Guest
+              </CardTitle>
+              <CardDescription className="text-center text-lg mt-2">
+                {pricing.guest}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="flex-grow">
+              <ul className="space-y-4">
+                {features.map((feature, index) => (
+                  <li key={index} className="flex items-center justify-between">
+                    <span className="text-sm font-medium">{feature.name}</span>
+                    <span className="flex items-center justify-center w-12">
+                      {renderFeatureAvailability(feature.guest)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+            <CardFooter className="flex justify-center pb-6">
+              <Button variant="outline" className="w-full">
+                Continue as Guest
+              </Button>
+            </CardFooter>
+          </Card>
+        </motion.div>
 
         {/* Standard Tier */}
-        <Card className="flex flex-col h-full border-2 border-primary hover:border-primary/70 transition-colors">
-          <CardHeader>
-            <div className="py-1 px-3 bg-primary text-primary-foreground text-xs font-semibold rounded-full w-fit mx-auto mb-2">
-              MOST POPULAR
-            </div>
-            <CardTitle className="text-2xl font-bold text-center">
-              Standard
-            </CardTitle>
-            <CardDescription className="text-center text-lg mt-2">
-              {pricing.standard}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex-grow">
-            <ul className="space-y-4">
-              {features.map((feature, index) => (
-                <li key={index} className="flex items-center justify-between">
-                  <span className="text-sm font-medium">{feature.name}</span>
-                  <span className="flex items-center justify-center w-12">
-                    {renderFeatureAvailability(feature.standard)}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-          <CardFooter className="flex justify-center pb-6">
-            <Button className="w-full">Sign Up</Button>
-          </CardFooter>
-        </Card>
+        <motion.div variants={cardVariants} whileHover="hover">
+          <Card className="flex flex-col h-full border-2 border-primary hover:border-primary/70 transition-colors">
+            <CardHeader>
+              <div className="py-1 px-3 bg-primary text-primary-foreground text-xs font-semibold rounded-full w-fit mx-auto mb-2">
+                MOST POPULAR
+              </div>
+              <CardTitle className="text-2xl font-bold text-center">
+                Standard
+              </CardTitle>
+              <CardDescription className="text-center text-lg mt-2">
+                {pricing.standard}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="flex-grow">
+              <ul className="space-y-4">
+                {features.map((feature, index) => (
+                  <li key={index} className="flex items-center justify-between">
+                    <span className="text-sm font-medium">{feature.name}</span>
+                    <span className="flex items-center justify-center w-12">
+                      {renderFeatureAvailability(feature.standard)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+            <CardFooter className="flex justify-center pb-6">
+              <Button className="w-full">Sign Up</Button>
+            </CardFooter>
+          </Card>
+        </motion.div>
 
         {/* Premium Tier */}
-        <Card className="flex flex-col h-full border-2 border-purple-500 hover:border-purple-400 transition-colors">
-          <CardHeader>
-            <div className="py-1 px-3 bg-purple-500 text-white text-xs font-semibold rounded-full w-fit mx-auto mb-2">
-              PREMIUM
-            </div>
-            <CardTitle className="text-2xl font-bold text-center">
-              Premium
-            </CardTitle>
-            <CardDescription className="text-center text-lg mt-2">
-              {pricing.premium}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex-grow">
-            <ul className="space-y-4">
-              {features.map((feature, index) => (
-                <li key={index} className="flex items-center justify-between">
-                  <span className="text-sm font-medium">{feature.name}</span>
-                  <span className="flex items-center justify-center w-12">
-                    {renderFeatureAvailability(feature.premium)}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-          <CardFooter className="flex justify-center pb-6">
-            <Button className="w-full bg-purple-500 hover:bg-purple-600 text-white">
-              Upgrade to Premium
-            </Button>
-          </CardFooter>
-        </Card>
+        <motion.div variants={cardVariants} whileHover="hover">
+          <Card className="flex flex-col h-full border-2 border-purple-500 hover:border-purple-400 transition-colors">
+            <CardHeader>
+              <div className="py-1 px-3 bg-purple-500 text-white text-xs font-semibold rounded-full w-fit mx-auto mb-2">
+                PREMIUM
+              </div>
+              <CardTitle className="text-2xl font-bold text-center">
+                Premium
+              </CardTitle>
+              <CardDescription className="text-center text-lg mt-2">
+                {pricing.premium}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="flex-grow">
+              <ul className="space-y-4">
+                {features.map((feature, index) => (
+                  <li key={index} className="flex items-center justify-between">
+                    <span className="text-sm font-medium">{feature.name}</span>
+                    <span className="flex items-center justify-center w-12">
+                      {renderFeatureAvailability(feature.premium)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+            <CardFooter className="flex justify-center pb-6">
+              <Button className="w-full bg-purple-500 hover:bg-purple-600 text-white">
+                Upgrade to Premium
+              </Button>
+            </CardFooter>
+          </Card>
+        </motion.div>
       </div>
 
-      <div className="mt-10 text-center">
+      <motion.div className="mt-10 text-center" variants={titleVariants}>
         <p className="text-muted-foreground">
           All plans include basic expense tracking and bill management features.
           <br />
@@ -199,8 +248,8 @@ const TierComparison = ({ className = "" }: TierComparisonProps) => {
             Contact us
           </Button>
         </p>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

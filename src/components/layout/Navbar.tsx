@@ -69,25 +69,65 @@ const Navbar = ({
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
-            <Link
-              to="/"
+            <a
+              href="#"
               className="text-foreground hover:text-primary transition-colors"
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
             >
               Home
-            </Link>
+            </a>
 
-            <Link
-              to="/pricing"
+            <a
+              href="#features"
               className="text-foreground hover:text-primary transition-colors"
+              onClick={(e) => {
+                e.preventDefault();
+                document
+                  .getElementById("features")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              Features
+            </a>
+            <a
+              href="#testimonials"
+              className="text-foreground hover:text-primary transition-colors"
+              onClick={(e) => {
+                e.preventDefault();
+                document
+                  .getElementById("testimonials")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              Testimonials
+            </a>
+            <a
+              href="#pricing"
+              className="text-foreground hover:text-primary transition-colors"
+              onClick={(e) => {
+                e.preventDefault();
+                document
+                  .getElementById("pricing")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
             >
               Pricing
-            </Link>
-            <Link
-              to="/about"
+            </a>
+            <a
+              href="#faq"
               className="text-foreground hover:text-primary transition-colors"
+              onClick={(e) => {
+                e.preventDefault();
+                document
+                  .getElementById("faq")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
             >
-              About
-            </Link>
+              FAQ
+            </a>
           </div>
 
           {/* Right Side - Auth & Theme Toggle */}
@@ -233,28 +273,70 @@ const Navbar = ({
         {isMobileMenuOpen && (
           <div className="md:hidden pt-4 pb-3 border-t mt-3">
             <div className="flex flex-col space-y-3">
-              <Link
-                to="/"
+              <a
+                href="#"
                 className="text-foreground hover:text-primary transition-colors px-3 py-2 rounded-md"
-                onClick={toggleMobileMenu}
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                  toggleMobileMenu();
+                }}
               >
                 Home
-              </Link>
+              </a>
 
-              <Link
-                to="/pricing"
+              <a
+                href="#features"
                 className="text-foreground hover:text-primary transition-colors px-3 py-2 rounded-md"
-                onClick={toggleMobileMenu}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document
+                    .getElementById("features")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                  toggleMobileMenu();
+                }}
+              >
+                Features
+              </a>
+              <a
+                href="#testimonials"
+                className="text-foreground hover:text-primary transition-colors px-3 py-2 rounded-md"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document
+                    .getElementById("testimonials")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                  toggleMobileMenu();
+                }}
+              >
+                Testimonials
+              </a>
+              <a
+                href="#pricing"
+                className="text-foreground hover:text-primary transition-colors px-3 py-2 rounded-md"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document
+                    .getElementById("pricing")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                  toggleMobileMenu();
+                }}
               >
                 Pricing
-              </Link>
-              <Link
-                to="/about"
+              </a>
+              <a
+                href="#faq"
                 className="text-foreground hover:text-primary transition-colors px-3 py-2 rounded-md"
-                onClick={toggleMobileMenu}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document
+                    .getElementById("faq")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                  toggleMobileMenu();
+                }}
               >
-                About
-              </Link>
+                FAQ
+              </a>
               {!isAuthenticated && (
                 <div className="flex flex-col space-y-2 pt-2">
                   <Button

@@ -10,6 +10,7 @@ import Testimonials from "./landing/Testimonials";
 import AuthModal from "./auth/AuthModal";
 import { useAuth } from "@/contexts/AuthContext";
 import Navbar from "./layout/Navbar";
+import { motion } from "framer-motion";
 
 const Home = () => {
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -105,7 +106,14 @@ const Home = () => {
         </div>
 
         {/* FAQ Section */}
-        <section id="faq" className="py-16 bg-background">
+        <motion.section
+          id="faq"
+          className="py-16 bg-background"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
           <div className="container px-4 md:px-6">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold tracking-tight mb-2">
@@ -141,18 +149,31 @@ const Home = () => {
                     "When you create a bill, you'll receive a unique invitation code that you can share with others. They can use this code to join your bill, even if they're not registered users.",
                 },
               ].map((faq, index) => (
-                <div key={index} className="space-y-2">
+                <motion.div
+                  key={index}
+                  className="space-y-2"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                >
                   <h3 className="text-xl font-semibold">{faq.question}</h3>
                   <p className="text-muted-foreground">{faq.answer}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
-        </section>
+        </motion.section>
       </main>
 
       {/* Footer */}
-      <footer className="border-t bg-background">
+      <motion.footer
+        className="border-t bg-background"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
         <div className="container px-4 py-10 md:px-6">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             <div className="space-y-4">
@@ -246,7 +267,7 @@ const Home = () => {
             <p>© {new Date().getFullYear()} SplitBill. All rights reserved.</p>
           </div>
         </div>
-      </footer>
+      </motion.footer>
 
       {/* Auth Modal */}
       <AuthModal
